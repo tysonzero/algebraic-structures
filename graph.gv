@@ -1,0 +1,58 @@
+digraph algebraic_structures {
+    node [ margin = "0.2", shape = box ]
+    rankdir = LR
+    size = "14"
+
+    Magma [ label = <<b>Magma (a, +)</b><br/>(+) :: a -&gt; a -&gt; a> ]
+    Semigroup [ label = <<b>Semigroup (a, +)</b><br/>∀a b c. (a + b) + c = a + (b + c)> ]
+    Monoid [ label = <<b>Monoid (a, +, 0)</b><br/>0 :: a<br/>∀a. a + 0 = 0 + a = a> ]
+    Group [ label = <<b>Group (a, +, 0)</b><br/>∀a ∃b. a + b = b + a = 0> ]
+    CommutativeMonoid [ label = <<b>Commutative Monoid (a, +, 0)</b><br/>∀a b. a + b = b + a> ]
+    Abelian [ label = <<b>Abelian (a, +, 0)</b>> ]
+
+    Magma -> Semigroup
+    Semigroup -> Monoid
+    Monoid -> Group
+    Monoid -> CommutativeMonoid
+    Group -> Abelian
+    CommutativeMonoid -> Abelian
+
+    RingLike [ label = <<b>Ring-Like (a, +, *)</b><br/>(+) :: a -&gt; a -&gt; a<br/>(*) :: a -&gt; a -&gt; a<br/>Monoid (a, +, 0)<br/>Semigroup (a, *)> ]
+    LeftSeminearring [ label = <<b>Left-Seminearring (a, +, *, 0)</b><br/>a * (b + c) = a * b + a * c<br/>a * 0 = 0> ]
+    RightSeminearring [ label = <<b>Right-Seminearring (a, +, *, 0)</b><br/>(a + b) * c = a * c + b * c<br/>0 * a = 0> ]
+    LeftNearring [ label = <<b>Left-Nearring (a, +, *, 0)</b><br/>Group (a, +, 0)> ]
+    RightNearring [ label = <<b>Right-Nearring (a, +, *, 0)</b><br/>Group (a, +, 0)> ]
+    Semiring [ label = <<b>Semiring (a, +, *, 0, 1)</b><br/>Commutative Monoid (a, +, 0)<br/>Monoid (a, *, 1)> ]
+    Ring [ label = <<b>Ring (a, +, *, 0, 1)</b>> ]
+    CommutativeRing [ label = <<b>Commutative Ring (a, +, *, 0, 1)</b><br/>Commutative Monoid (a, *, 1)> ]
+    DivisionRing [ label = <<b>Division Ring (a, +, *, 0, 1)</b><br/>Group (a - {0}, *, 1)> ]
+    Field [ label = <<b>Field (a, +, *, 0, 1)</b>> ]
+
+    RingLike -> LeftSeminearring
+    RingLike -> RightSeminearring
+    LeftSeminearring -> LeftNearring
+    RightSeminearring -> RightNearring
+    LeftSeminearring -> Semiring
+    RightSeminearring -> Semiring
+    LeftNearring -> Ring
+    RightNearring -> Ring
+    Semiring -> Ring
+    Ring -> CommutativeRing
+    Ring -> DivisionRing
+    CommutativeRing -> Field
+    DivisionRing -> Field
+
+    Eq [ label = <<b>Equivalence (a, ==)</b><br/>(==) :: a -&gt; a -&gt; Bool<br/>∀a. a == a<br/>∀a b. a == b = b == a<br/>∀a b c. a == b and b == c → a == c> ]
+    POrd [ label = <<b>Partial Order (a, ≥)</b><br/>(≥) :: a -&gt; a -&gt; Bool<br/>a == b = a ≥ b and b ≥ a<br/>∀a. a ≥ a<br/>∀a b c. a ≥ b and b ≥ c → a ≥ c> ]
+    MeetSemilattice [ label = <<b>Meet Semilattice (a, ∧, ==)</b><br/>∀a b c. a ∧ (b ∧ c) = (a ∧ b) ∧ c<br/>∀a b. a ∧ b = b ∧ a<br/>∀a. a ∧ a = a<br/>a ≥ b = a ∧ b == b> ]
+    JoinSemilattice [ label = <<b>Join Semilattice (a, ∨, ==)</b><br/>∀a b c. a ∨ (b ∨ c) = (a ∨ b) ∨ c<br/>∀a b. a ∨ b = b ∨ a<br/>∀a. a ∨ a = a<br/>a ≥ b = a ∨ b == a> ]
+    Lattice [ label =<<b>Lattice (a, ∧, ∨, ==)</b>> ]
+    Ord [ label = <<b>Total Order (a, ≥)</b><br/>∀a b. a ≥ b or b ≥ a<br/>a ∧ b | a ≥ b → b | b ≥ a → a<br/>a ∨ b | a ≥ b → a | b ≥ a → b> ]
+
+    Eq -> POrd
+    POrd -> MeetSemilattice
+    POrd -> JoinSemilattice
+    MeetSemilattice -> Lattice
+    JoinSemilattice -> Lattice
+    Lattice -> Ord
+}
